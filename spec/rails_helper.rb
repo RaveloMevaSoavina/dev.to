@@ -164,6 +164,10 @@ RSpec.configure do |config|
     allow(Percy).to receive(:snapshot)
   end
 
+  config.after(:all) do
+    Timecop.return
+  end
+
   OmniAuth.config.test_mode = true
   OmniAuth.config.logger = Rails.logger
 
