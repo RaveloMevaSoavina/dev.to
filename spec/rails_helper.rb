@@ -164,7 +164,7 @@ RSpec.configure do |config|
     allow(Percy).to receive(:snapshot)
   end
 
-  config.after(:all) do
+  config.after do
     Timecop.return
   end
 
