@@ -10,7 +10,7 @@ RSpec.describe "ProfilePins", type: :request do
   let(:article6) { create(:article, user_id: user.id) }
   let(:article7) { create(:article, user_id: user.id) }
 
-  before { sign_in user }
+  before { sign_in user.reload }
 
   describe "POST /profile_pins" do
     it "creates a pin" do
