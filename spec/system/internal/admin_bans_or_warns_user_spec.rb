@@ -61,7 +61,7 @@ RSpec.describe "Admin bans user", type: :system do
   end
 
   it "removes other roles if user is banned" do
-    user.add_role :trusted
+    user.add_role_synchronously :trusted
     add_tag_moderator_role
     ban_user
 
