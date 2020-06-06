@@ -187,7 +187,7 @@ RSpec.configure do |config|
     # this ensures that roles are finished being added before we continue with our spec
     def add_role_synchronously(role_name, resource = nil)
       attempts = 0
-      max_attempts = 100
+      max_attempts = 1000
       result = add_role(role_name, resource)
 
       attempts += 1 until roles.detect { |r| r.name == role_name.to_s } || attempts > max_attempts
