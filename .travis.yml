@@ -85,7 +85,7 @@ deploy:
     condition: $TRAVIS_COMMIT_MESSAGE =~ \[deploy\]
 notifications:
   slack:
-    if: branch = master
+    if: branch = master && $KNAPSACK_PRO_CI_NODE_INDEX" == "0"
     on_pull_requests: false
     on_success: change
     on_failure: always
