@@ -46,7 +46,7 @@ RSpec.describe ArticlePolicy do
   end
 
   context "when user is a super_admin" do
-    let(:user) { build(:user, :super_admin) }
+    let(:user) { create(:user, :super_admin) }
 
     it { is_expected.to permit_actions(%i[update new edit manage create delete_confirm destroy preview]) }
   end

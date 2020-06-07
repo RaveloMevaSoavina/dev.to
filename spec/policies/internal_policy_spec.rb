@@ -9,11 +9,11 @@ RSpec.describe InternalPolicy, type: :policy do
     end
 
     it "allow someone with admin privileges to continue" do
-      expect(internal_policy).to permit(build(:user, :admin))
+      expect(internal_policy).to permit(create(:user, :admin))
     end
 
     it "allow someone with super_admin privileges to continue" do
-      expect(internal_policy).to permit(build(:user, :super_admin))
+      expect(internal_policy).to permit(create(:user, :super_admin))
     end
 
     context "when tied to a resource" do

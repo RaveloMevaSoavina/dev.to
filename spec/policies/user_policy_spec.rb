@@ -28,7 +28,7 @@ RSpec.describe UserPolicy, type: :policy do
   end
 
   context "when user is trusted" do
-    let(:user) { build(:user, :trusted) }
+    let(:user) { create(:user, :trusted) }
 
     it { is_expected.to permit_actions(%i[moderation_routes]) }
   end
