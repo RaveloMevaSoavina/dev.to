@@ -76,7 +76,7 @@ RSpec.describe "UserBlock", type: :request do
 
     it "renders 'not-blocking-anyone' if there is no one to unblock" do
       UserBlock.delete_all
-      blocker.update(blocking_others_count: 0)
+      allow(blocker).to receive(:blocking_others_count).and_return(0)
       delete "/user_blocks/#{blocked.id}", params: { user_block: { blocked_id: blocked.id } }
       expect(response.media_type).to eq "application/json"
       expect(response.parsed_body["result"]).to eq "not-blocking-anyone"
