@@ -25,7 +25,7 @@ RSpec.describe RssReader, type: :service, vcr: true do
       end
     end
 
-    xit "fetch only articles from a feed_url", vcr: { cassette_name: "rss_reader_fetch_articles" } do
+    it "fetch only articles from a feed_url", vcr: { cassette_name: "rss_reader_fetch_articles" } do
       articles = rss_reader.get_all_articles
 
       # the result within the approval file depends on the feed
@@ -33,13 +33,13 @@ RSpec.describe RssReader, type: :service, vcr: true do
       verify(format: :txt) { articles.length }
     end
 
-    xit "does not recreate articles if they already exist", vcr: { cassette_name: "rss_reader_fetch_articles_twice" } do
+    it "does not recreate articles if they already exist", vcr: { cassette_name: "rss_reader_fetch_articles_twice" } do
       rss_reader.get_all_articles
 
       expect { rss_reader.get_all_articles }.not_to change(Article, :count)
     end
 
-    xit "parses correctly", vcr: { cassette_name: "rss_reader_fetch_articles" } do
+    it "parses correctly", vcr: { cassette_name: "rss_reader_fetch_articles" } do
       rss_reader.get_all_articles
 
       verify format: :txt do
@@ -47,7 +47,7 @@ RSpec.describe RssReader, type: :service, vcr: true do
       end
     end
 
-    xit "sets feed_fetched_at to the current time", vcr: { cassette_name: "rss_reader_fetch_articles" } do
+    it "sets feed_fetched_at to the current time", vcr: { cassette_name: "rss_reader_fetch_articles" } do
       Timecop.freeze(Time.current) do
         rss_reader.get_all_articles
 
@@ -57,7 +57,7 @@ RSpec.describe RssReader, type: :service, vcr: true do
       end
     end
 
-    xit "does refetch same user over and over by default", vcr: { cassette_name: "rss_reader_fetch_multiple_times" } do
+    it "does refetch same user over and over by default", vcr: { cassette_name: "rss_reader_fetch_multiple_times" } do
       user = User.find_by(feed_url: nonpermanent_link)
 
       Timecop.freeze(Time.current) do
@@ -94,7 +94,7 @@ RSpec.describe RssReader, type: :service, vcr: true do
       expect(Rails.logger).to have_received(:error).at_least(:once)
     end
 
-    xit "queues as many slack messages as there are articles", vcr: { cassette_name: "rss_reader_fetch_articles" } do
+    it "queues as many slack messages as there are articles", vcr: { cassette_name: "rss_reader_fetch_articles" } do
       old_count = Slack::Messengers::Worker.jobs.count
       articles = rss_reader.get_all_articles
       expect(Slack::Messengers::Worker.jobs.count).to eq(old_count + articles.length)
